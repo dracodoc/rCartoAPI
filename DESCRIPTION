@@ -4,13 +4,14 @@ Title: R Wrapper for Carto.com API
 Version: 0.1.0
 Author: Xianghui Dong
 Maintainer: xianghui Dong <xianghui.dong@gmail.com>
-Description: Import, sync file with Carto. Run SQL inquries.
+Description: Import, sync file, run SQL inquries with Carto in R
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
     stringr,
     data.table,
-    lubridate, 
-    httr, 
+    lubridate,
+    httr,
     jsonlite
+RoxygenNote: 5.0.1
