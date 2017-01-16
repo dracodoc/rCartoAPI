@@ -6,8 +6,8 @@
 #'
 #' Called by \code{\link{local_import}}, \code{\link{url_common}}
 #'
-#' @param middle the unique part of each individual API type
-#' @return API url
+#' @param middle the unique part of each individual API call
+#' @return import and sync API url
 build_url <- function(middle){
   carto_env <- carto_setup()
   base_url <- paste0("https://",
@@ -122,7 +122,7 @@ list_sync_tables <- function(){
   return(get_response(res))
 }
 
-#' Get the sync files table in data.table
+#' Get the sync files table and convert to data.table
 #'
 #' If calling function without assigning return value, both request status and
 #' reponse will be printed in console. If assigning a return value to variable,
@@ -140,45 +140,76 @@ list_sync_tables_dt <- function(){
   return(dt)
 }
 
-# tables_dt <- list_sync_tables_dt()
-# check time in local time zone
-# with_tz(ymd_hms(dt[8, created_at]))
-# some data from Carto data library actually call api directly to return a file for sync
-# some table name have original file name with table prefix. duplicate file have _1 postfix.
-
-# check sync status. it's the same url for force sync, one use GET, one use PUT
-build_sync_table_url <- function(table_id) {
+#' Build url for checking sync status or force sync
+#'
+#' The url is same for two commands, except GET or PUT
+#'
+#' @param table_id the sync table id from the sync request response
+#'
+#' @return API url
+build_sync_url <- function(table_id) {
   return(build_url(paste0("synchronizations/", table_id, "/sync_now")))
 }
-# some empty link or not finished link report success too. not really useful, the state column of sync table provided more infor, plus other columns of the table.
+
+#' Check sync status
+#'
+#' Sometimes there are empty link or unfinished sync reported as success in
+#' request status. The table of all sync files actually provids more information
+#' about status than this function.
+#'
+#' If calling function without assigning return value, both request status and
+#' reponse will be printed in console. If assigning a return value to variable,
+#' only status will be printed.
+#'
+#' @param table_id the sync table id from the sync request response
+#'
+#' @return request response in JSON format
+#' @export
 check_sync_status <- function(table_id) {
-  res <- httr::GET(build_sync_table_url(table_id))
+  res <- httr::GET(build_sync_url(table_id))
   return(get_response(res))
 }
-# check_sync_status(dt[name == "tn_sample", id])
-# check_sync_status(dt[15, id])
 
-# finished sync tables appear in data set page, should manage, delete from there. empty, wrong sync tables doesn't appear in that page, so cannot delete from web page.
-# remove sync relation, not removing data set.
+#' Remove sync for remote file
+#'
+#' Just remove the sync schedule, not the existing table in Carto.
+#'
+#' Finished sync tables should appear in Carto.com data set page. Empty or wrong
+#' sync tables will not appear and cannot be delete from web UI.
+#'
+#' @param table_id  the sync table id from the sync request response
+#'
+#' @return request response in JSON format
+#' @export
 remove_sync <- function(table_id) {
   base_url <- build_url(paste0("synchronizations/", table_id))
   res <- httr::DELETE(base_url)
   get_response(res, print_only = TRUE)
 }
-# tables_dt <- list_sync_tables_dt()
-# remove_sync(tables_dt[2, id])
 
-
-# force sync directly. it may fail if less than 15 min since last sync. if there is "sync now" button in data set view, it should be possible. this function is used internally.
+#' Force sync a sync table
+#'
+#' There is a 15 mins wait limit since last sync. Depend on last sync time the
+#' force sync may fail. When force sync is possible there should be a "sync now"
+#' button in data set view page.
+#'
+#' @param table_id  the sync table id from the sync request response
+#'
+#' @return request response in JSON format
 force_sync_without_time_check <- function(table_id){
-  res <- PUT(build_sync_table_url(table_id))
+  res <- PUT(build_sync_url(table_id))
   return(get_response(res))
 }
 
-# force_sync_without_time_check(dt[2, id])
-
-# force sync with time check
-# id is in the url_sync response, or list_sync_tables
+#' Force Sync with time check
+#'
+#' Since there is a 15 mins wait limit since last sync, this function will check
+#' last sync time first, and only run force sync when it's possible.
+#'
+#' @param table_id the sync table id from the sync request response
+#'
+#' @return request response if force sync is run
+#' @export
 force_sync <- function(table_id){
   cat("Checking last sync time for table ...\n")
   tables_dt <- list_sync_tables_dt()
