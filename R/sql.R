@@ -42,6 +42,10 @@ build_sql_batch_job_url <- function(job_id){
 
 #' Run sql inquiry
 #'
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
+#'
 #' @param inquiry sql inquiry string
 #' @param parameter additional parameter to sql inquiry, like file format or
 #'   file name
@@ -65,32 +69,59 @@ test_connection <- function(){
   return(sql_inquiry("SELECT 1"))
 }
 
-#' Run sql inquiry with return format as GeoJSON
+#' Run sql inquiry and save result to file
 #'
-#' It's just a wrapper to \code{sql_inquiry(inquiry, "&format=GeoJSON")}
+#' Carto API requires a file name but \code{httr::write_disk} file path will override
+#' it. So we can use any dummy file name for API call.
 #'
 #' @param inquiry sql inquiry string
+#' @param filepath output file path
+#' @param parameter additional parameter to sql inquiry, like file format,
+#'   by default in JSON, could be GeoJSON
 #'
-#' @return request response in JSON format
+#' @return request status
 #' @export
 #'
 #' @examples
-sql_inquiry_geo <- function(inquiry) {
-  return(sql_inquiry(inquiry, "&format=GeoJSON"))
+#' sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/testgeo.json", "&format=GeoJSON")
+#' sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/test.json")
+sql_inquiry_save <- function(inquiry, filepath, parameter = ""){
+  # didn't use get_response because do not need to print or save the response content, and the on disk info is only available when calling get directly.
+  httr::GET(build_sql_api_url(inquiry, paste0("filename=dummy", parameter)),
+            httr::write_disk(filepath))
 }
-# g <- sql_inquiry_geo("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
-# this is not working. check the census data in sync table, which used this api
 
-sql_inquiry_file <- function(inquiry, file_path){
-  return(sql_inquiry(inquiry, paste0("filename=", file_path)))
+#' Run sql inquiry and save result file as GeoJSON
+#'
+#' A wrapper to \code{sql_inquiry_save(inquiry, filepath, "&format=GeoJSON")}
+#'
+#' @param inquiry sql inquiry string
+#' @param filepath output file path
+#'
+#' @return request status
+#' @export
+#'
+#' @examples
+#' sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/test.json")
+sql_inquiry_save_geojson <- function(inquiry, filepath) {
+  sql_inquiry_save(inquiry, filepath, "&format=GeoJSON")
 }
-# seemed have a download named as test.json in chrome. let browser choose location, only used file name part
-# sql_inquiry_file("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2", "e:/test.txt")
 
+#' Run sql inquiry and save result in data.table
+#'
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
+#'
+#' @param inquiry sql inquiry string
+#'
+#' @return result in data.table
+#' @export
+#' @import data.table
 sql_inquiry_dt <- function(inquiry) {
   res <- sql_inquiry(inquiry)
   cat("----Inquiry Result:----\n")
-  dt <- data.table(jsonlite::fromJSON(res)$rows)
+  dt <- data.table::data.table(jsonlite::fromJSON(res)$rows)
   return(dt)
 }
 # sql_inquiry_dt("SELECT 1")

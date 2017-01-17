@@ -10,9 +10,9 @@ list_sync_tables_dt()
 A data.table holding sync file table
 }
 \description{
-If calling function without assigning return value, both request status and
-reponse will be printed in console. If assigning a return value to variable,
-only status will be printed.
+Calling function without assigning return value will print response status
+and response content in console. Assigning return value will print response
+status only.
 }
 \details{
 Note the time in response is UTC time. To convert it into local time, use

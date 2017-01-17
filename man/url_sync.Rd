@@ -16,6 +16,8 @@ FALSE.}
 request response
 }
 \description{
-Sync with a remote file link
+Calling function without assigning return value will print response status
+and response content in console. Assigning return value will print response
+status only.
 }
 

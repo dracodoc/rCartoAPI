@@ -18,8 +18,8 @@ request status. The table of all sync files actually provids more information
 about status than this function.
 }
 \details{
-If calling function without assigning return value, both request status and
-reponse will be printed in console. If assigning a return value to variable,
-only status will be printed.
+Calling function without assigning return value will print response status
+and response content in console. Assigning return value will print response
+status only.
 }
 

@@ -21,7 +21,7 @@ build_url <- function(middle){
 
 #' Upload local file to Carto
 #'
-#' calling function without assigning return value will print response status
+#' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
 #' status only.
 #'
@@ -51,15 +51,6 @@ convert_dropbox_link <- function(link = readClipboard()){
   return(str_replace(link, "www.dropbox.com", "dl.dropboxusercontent.com"))
 }
 
-
-# url import. this is very similar to sync table in syntax, but as one time import, still useful. also have type guessing control.
-# type guessing: the content guessing is about geocoding, not implemented fully, leave it as is.
-# we still want general type guessing to get number as number, especially lat/lon as coordinates.
-# just disable guessing for quoted field so we can keep string column as string. Number formated string will stay as string instead of number and lost leading zeros. With quoted guessing disabled, date will not be converted automatically, use sql to convert when needed.
-# if there is no need for this case, enable quoted guessing to accept default behavior.
-
-
-
 #' The commong part of url to call import or sync API with a remote link
 #'
 #' Used \code{\link{build_url}}. Called by \code{\link{url_import}},
@@ -83,6 +74,10 @@ url_common <- function(link, quoted_guessing = FALSE, api){
 
 #' Import a remote file link into Carto
 #'
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
+#'
 #' @param link remote file link
 #' @param quoted_guessing If TRUE, Carto will also guess quoted columns. Default
 #'   FALSE.
@@ -94,6 +89,10 @@ url_import <- function(link, quoted_guessing = FALSE){
 }
 
 #' Sync with a remote file link
+#'
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
 #'
 #' @param link remote file link
 #' @param quoted_guessing If TRUE, Carto will also guess quoted columns. Default
@@ -107,9 +106,9 @@ url_sync <- function(link, quoted_guessing = FALSE){
 
 #' List all files in sync
 #'
-#' If calling function without assigning return value, both request status and
-#' reponse will be printed in console. If assigning a return value to variable,
-#' only status will be printed.
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
 #'
 #' Note the time in response is UTC time. To convert it into local time, use
 #' \code{with_tz(ymd_hms(time))}
@@ -124,19 +123,20 @@ list_sync_tables <- function(){
 
 #' Get the sync files table and convert to data.table
 #'
-#' If calling function without assigning return value, both request status and
-#' reponse will be printed in console. If assigning a return value to variable,
-#' only status will be printed.
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
 #'
 #' Note the time in response is UTC time. To convert it into local time, use
 #' \code{with_tz(ymd_hms(time))}
 #'
 #' @return A data.table holding sync file table
 #' @export
+#' @import data.table
 list_sync_tables_dt <- function(){
   # don't need content in json format no matter what.
   res <- list_sync_tables()
-  dt <- data.table(jsonlite::fromJSON(res)$synchronizations)
+  dt <- as.data.table(jsonlite::fromJSON(res)$synchronizations)
   return(dt)
 }
 
@@ -157,9 +157,9 @@ build_sync_url <- function(table_id) {
 #' request status. The table of all sync files actually provids more information
 #' about status than this function.
 #'
-#' If calling function without assigning return value, both request status and
-#' reponse will be printed in console. If assigning a return value to variable,
-#' only status will be printed.
+#' Calling function without assigning return value will print response status
+#' and response content in console. Assigning return value will print response
+#' status only.
 #'
 #' @param table_id the sync table id from the sync request response
 #'
