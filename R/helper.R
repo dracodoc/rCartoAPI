@@ -9,16 +9,18 @@
 #' script, run \code{file.edit("~/.Rprofile")} and add
 #' \code{Sys.setenv(carto_acc = "your user name")};
 #' \code{Sys.setenv(carto_api_key = "your api key")}
-
 #'
+#' Check package readme for more details about two approaches.
 #'
 #' @return a named vector holding user name and API key
 #'
 carto_setup <- function(){
+  # checking 1. if vector exist 2. vector names 3. vector element length
   found_carto_env <- function(){
     ifelse((exists("carto_env") &&
-        all(nchar(carto_env) != 0)),
-      TRUE, FALSE)
+              identical(sort(names(carto_env)), c("carto_acc", "carto_api_key")) &&
+              all(nchar(carto_env) != 0)),
+           TRUE, FALSE)
   }
   # read from global environment first. so new assignment will override sys env.
   if (found_carto_env()) {
@@ -29,11 +31,10 @@ carto_setup <- function(){
     if (found_carto_env()) {
       return(carto_env)
     } else {
-      return(message("Carto user name or API key not found, check `help carto_setup` for details"))
+      return(message("Carto user name or API key not found, check `?carto_setup` for details"))
     }
   }
 }
-
 
 #' Print or return the API call response
 #'
