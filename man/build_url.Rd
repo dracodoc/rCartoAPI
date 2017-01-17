@@ -7,10 +7,10 @@
 build_url(middle)
 }
 \arguments{
-\item{middle}{the unique part of each individual API type}
+\item{middle}{the unique part of each individual API call}
 }
 \value{
-API url
+import and sync API url
 }
 \description{
 The import and sync API url are very similar. This function capture the

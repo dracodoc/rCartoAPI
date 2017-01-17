@@ -2,14 +2,17 @@
 % Please edit documentation in R/sql.R
 \name{build_sql_url}
 \alias{build_sql_url}
-\title{Build}
+\title{Build url for sql and batch sql inquiry}
 \usage{
 build_sql_url(middle)
 }
 \arguments{
-\item{middle}{}
+\item{middle}{the unique part of each individual API call}
+}
+\value{
+sql API url
 }
 \description{
-Build
+Build url for sql and batch sql inquiry
 }
 

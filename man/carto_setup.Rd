@@ -20,5 +20,7 @@ c(carto_acc = "your user name", carto_api_key = "your api key")}
 script, run \code{file.edit("~/.Rprofile")} and add
 \code{Sys.setenv(carto_acc = "your user name")};
 \code{Sys.setenv(carto_api_key = "your api key")}
+
+Check package readme for more details about two approaches.
 }
 
