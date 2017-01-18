@@ -2,38 +2,45 @@
 #'
 #' All functions need a Carto user name and API key.
 #'
-#' 1. To add user name and API key in console or script, run \code{carto_env <-
-#' c(carto_acc = "your user name", carto_api_key = "your api key")}
+#' 1. run \code{file.edit("~/.Renviron")} and add \code{Sys.setenv(carto_acc =
+#' "your user name")}; \code{Sys.setenv(carto_api_key = "your api key")}
 #'
-#' 2. To save them in R user profile so it's more permanent and not exposed in
-#' script, run \code{file.edit("~/.Rprofile")} and add
-#' \code{Sys.setenv(carto_acc = "your user name")};
-#' \code{Sys.setenv(carto_api_key = "your api key")}
+#' 2. run \code{readRenviron("~/.Renviron")} or \code{update_api_key()} to
+#' update environment variables.
 #'
-#' Check package readme for more details about two approaches.
+#' Check package readme for more details.
 #'
 #' @return a named vector holding user name and API key
-#'
 carto_setup <- function(){
-  # checking 1. if vector exist 2. vector names 3. vector element length
-  found_carto_env <- function(){
-    ifelse((exists("carto_env") &&
-              identical(sort(names(carto_env)), c("carto_acc", "carto_api_key")) &&
-              all(nchar(carto_env) != 0)),
-           TRUE, FALSE)
-  }
-  # read from global environment first. so new assignment will override sys env.
-  if (found_carto_env()) {
+  carto_env <- Sys.getenv(c("carto_acc", "carto_api_key"))
+  if (identical(sort(names(carto_env)), c("carto_acc", "carto_api_key")) &&
+      all(nchar(carto_env) != 0)) {
     return(carto_env)
   } else {
-    # then check sys environment
-    carto_env <- Sys.getenv(c("carto_acc", "carto_api_key"))
-    if (found_carto_env()) {
-      return(carto_env)
-    } else {
-      return(message("Carto user name or API key not found, check `?carto_setup` for details"))
-    }
+    return(message("Carto user name or API key not found, check `?carto_setup` for details"))
   }
+}
+
+#' Check if carto user name and API key is available
+#'
+#' @return setup status message string
+check_carto_setup <- function(){
+  carto_env <- carto_setup()
+  ifelse(typeof(carto_env) == "character",
+                paste0("Carto API key for user ", carto_env["carto_acc"],
+                       " found in environment"),
+                "Carto user name and API key not found in environment or invalid, check `help carto_setup` for details")
+}
+
+#' Update environment variables
+#'
+#' \code{readRenviron("~/.Renviron")} then check if the setup is correct
+#'
+#' @return setup status message
+#' @export
+update_env <- function(){
+  readRenviron("~/.Renviron")
+  cat(check_carto_setup(), "\n")
 }
 
 #' Print or return the API call response

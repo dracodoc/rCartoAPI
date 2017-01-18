@@ -13,14 +13,12 @@ a named vector holding user name and API key
 All functions need a Carto user name and API key.
 }
 \details{
-1. To add user name and API key in console or script, run \code{carto_env <-
-c(carto_acc = "your user name", carto_api_key = "your api key")}
+1. run \code{file.edit("~/.Renviron")} and add \code{Sys.setenv(carto_acc =
+"your user name")}; \code{Sys.setenv(carto_api_key = "your api key")}
 
-2. To save them in R user profile so it's more permanent and not exposed in
-script, run \code{file.edit("~/.Rprofile")} and add
-\code{Sys.setenv(carto_acc = "your user name")};
-\code{Sys.setenv(carto_api_key = "your api key")}
+2. run \code{readRenviron("~/.Renviron")} or \code{update_api_key()} to
+update environment variables.
 
-Check package readme for more details about two approaches.
+Check package readme for more details.
 }
 
