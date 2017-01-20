@@ -129,6 +129,15 @@ sql_inquiry_dt <- function(inquiry) {
 
 # usually batch job will need to save result into table, then read result from table in web page, or sql inquiry api. need to know table name. need cartodbfy table to make it appear in data set page.
 # real batch job usually are slow, need job id to check status. This function return job_id in console. the id version return job_id.
+
+#' Title
+#'
+#' @param inquiry
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sql_batch_inquiry <- function(inquiry){
   # sql_url <- get_sql_batch_url()
   sql_batch_url <- build_sql_batch_url()
@@ -142,6 +151,14 @@ sql_batch_inquiry <- function(inquiry){
 # inq <- sql_batch_inquiry("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
 # it's not appropriate to define a dt version, all dt version return results in dt. here is just to get response parameters. no need to write general json->dt function since it's too simple, but need one liner to get jobid since it's too common.
 
+#' Title
+#'
+#' @param inquiry
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sql_batch_inquiry_id <- function(inquiry){
   res <- sql_batch_inquiry(inquiry)
   # response has been converted to json already. just print it
@@ -151,6 +168,16 @@ sql_batch_inquiry_id <- function(inquiry){
 # sql_batch_inquiry_id("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
 # temp <- sql_batch_inquiry_id("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
 # check status, so called read job in documentation
+
+#' Title
+#'
+#' @param job_id
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' @import lubridate
 sql_batch_check <- function(job_id){
   res <- get_response(httr::GET(build_sql_batch_job_url(job_id)))
   cat(res)
@@ -164,6 +191,15 @@ sql_batch_check <- function(job_id){
 }
 # sql_batch_check("2a610405-bc22-4ce4-b8d8-0d866d871d56")
 # not tested yet, beause no unfinished job
+
+#' Title
+#'
+#' @param job_id
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sql_batch_cancel <- function(job_id){
   return(get_response(httr::DELETE(build_sql_batch_job_url(job_id))))
 }
