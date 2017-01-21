@@ -182,7 +182,7 @@ check_sync_status <- function(table_id) {
 remove_sync <- function(table_id) {
   base_url <- build_url(paste0("synchronizations/", table_id))
   res <- httr::DELETE(base_url)
-  get_response(res, print_only = TRUE)
+  get_response(res, content_echo = FALSE)
 }
 
 #' Force sync a sync table

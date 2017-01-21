@@ -45,20 +45,27 @@ update_env <- function(){
 
 #' Print or return the API call response
 #'
-#' There are two parts in response: response status and response content. The status report whether the request is sucess, and the content have more information about the request may be useful later.
+#' There are two parts in response: response status and response content. The
+#' status report whether the request is success, and the content is the return
+#' value of API call.
 #'
-#' Run function without assigning return value will print both status and response in console. Assigning return value will only print the status in console, then save the content in prettified json format.
+#' Run function without assigning return value will print both status and
+#' response in console. Assigning return value will only print the status in
+#' console, then save the content in prettified json format.
+#'
+#' Function will stop for http error.
 #'
 #' @param res response object
-#' @param print_only If TRUE, only print the status, no returning of content. Default FALSE.
+#' @param content_echo whether to print request content in console
 #'
-#' @return If \code{print_only} is FALSE, the response object in prettified json format
-get_response <- function(res, print_only = FALSE) {
+#' @return If \code{no_echo} is FALSE, the response object in prettified json
+#'   format
+get_response <- function(res, content_echo = TRUE) {
   httr::stop_for_status(res)
   cat("\n----Request Status:----\n")
   cat(jsonlite::toJSON(httr::http_status(res), pretty = TRUE))
   cat("\n-----------------------\n")
-  if (!print_only) {
+  if (content_echo) {
     response <- jsonlite::prettify(httr::content(res, "text"))
     return(response)
   }

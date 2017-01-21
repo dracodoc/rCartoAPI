@@ -4,20 +4,27 @@
 \alias{get_response}
 \title{Print or return the API call response}
 \usage{
-get_response(res, print_only = FALSE)
+get_response(res, content_echo = TRUE)
 }
 \arguments{
 \item{res}{response object}
 
-\item{print_only}{If TRUE, only print the status, no returning of content. Default FALSE.}
+\item{content_echo}{whether to print request content in console}
 }
 \value{
-If \code{print_only} is FALSE, the response object in prettified json format
+If \code{no_echo} is FALSE, the response object in prettified json
+  format
 }
 \description{
-There are two parts in response: response status and response content. The status report whether the request is sucess, and the content have more information about the request may be useful later.
+There are two parts in response: response status and response content. The
+status report whether the request is success, and the content is the return
+value of API call.
 }
 \details{
-Run function without assigning return value will print both status and response in console. Assigning return value will only print the status in console, then save the content in prettified json format.
+Run function without assigning return value will print both status and
+response in console. Assigning return value will only print the status in
+console, then save the content in prettified json format.
+
+Function will stop for http error.
 }
 
