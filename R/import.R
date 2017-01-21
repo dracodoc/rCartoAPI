@@ -121,7 +121,7 @@ list_sync_tables <- function(){
   return(get_response(res))
 }
 
-#' Get the sync files table and convert to data.table
+#' Get the sync files table and convert to data frame
 #'
 #' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
@@ -130,14 +130,12 @@ list_sync_tables <- function(){
 #' Note the time in response is UTC time. To convert it into local time, use
 #' \code{lubridate::with_tz(lubridate::ymd_hms(time))}
 #'
-#' @return A data.table holding sync file table
+#' @return A data holding sync file table
 #' @export
-#' @import data.table
-list_sync_tables_dt <- function(){
+list_sync_tables_df <- function(){
   # don't need content in json format no matter what.
   res <- list_sync_tables()
-  dt <- data.table(jsonlite::fromJSON(res)$synchronizations)
-  return(dt)
+  return(return(jsonlite::fromJSON(res)$synchronizations))
 }
 
 #' Build url for checking sync status or force sync
@@ -211,12 +209,12 @@ force_sync_without_time_check <- function(table_id){
 #' @return request response if force sync is run
 #' @export
 force_sync <- function(table_id){
+  tables_df <- list_sync_tables_df()
   cat("Checking last sync time for table ...\n")
-  tables_dt <- list_sync_tables_dt()
   # has similar code in sql_batch_check, but difficult to abstract since two variables are needed
-  last_sync_time <- lubridate::ymd_hms(tables_dt[id == table_id, updated_at])
+  last_sync_time <- lubridate::ymd_hms(tables_df[tables_df$id == table_id, "updated_at"])
   time_passed <- lubridate::now() - last_sync_time
-  cat(paste0("\n\n", format(time_passed), " passed since last sync at ", lubridate::with_tz(last_sync_time), "\n"))
+  cat(paste0("\n", format(time_passed), " passed since last sync at ", lubridate::with_tz(last_sync_time), "\n"))
   if (time_passed < lubridate::dminutes(15)) {
     stop("\nCarto require at least 15 mins wait since last sync")
   } else {

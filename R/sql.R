@@ -109,7 +109,7 @@ sql_inquiry_save_geojson <- function(inquiry, filepath) {
   sql_inquiry_save(inquiry, filepath, "&format=GeoJSON")
 }
 
-#' Run sql inquiry and save result in data.table
+#' Run sql inquiry and save result in data frame
 #'
 #' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
@@ -117,14 +117,12 @@ sql_inquiry_save_geojson <- function(inquiry, filepath) {
 #'
 #' @param inquiry sql inquiry string
 #'
-#' @return result in data.table
+#' @return result in data frame
 #' @export
-#' @import data.table
-sql_inquiry_dt <- function(inquiry) {
+sql_inquiry_df <- function(inquiry) {
   res <- sql_inquiry(inquiry)
   cat("----Inquiry Result:----\n")
-  dt <- data.table::data.table(jsonlite::fromJSON(res)$rows)
-  return(dt)
+  return(jsonlite::fromJSON(res)$rows)
 }
 
 #' Run Batch sql inquiry
@@ -144,9 +142,6 @@ sql_batch_inquiry <- function(inquiry){
   )
   return(get_response(res))
 }
-
-# inq <- sql_batch_inquiry("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
-# it's not appropriate to define a dt version, all dt version return results in dt. here is just to get response parameters. no need to write general json->dt function since it's too simple, but need one liner to get jobid since it's too common.
 
 #' Run Batch sql inquiry and return job id
 #'
