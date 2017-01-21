@@ -11,15 +11,15 @@ sql_inquiry_save(inquiry, filepath, parameter = "")
 
 \item{filepath}{output file path}
 
-\item{parameter}{additional parameter to sql inquiry, like file format,
-by default in JSON, could be GeoJSON}
+\item{parameter}{additional parameter to sql inquiry, like file format, by
+default in JSON, could be GeoJSON}
 }
 \value{
 request status
 }
 \description{
-Carto API requires a file name but \code{httr::write_disk} file path will override
-it. So we can use any dummy file name for API call.
+Carto API requires a file name but \code{httr::write_disk} file path will
+override it. So we can use any dummy file name for API call.
 }
 \examples{
 sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/testgeo.json", "&format=GeoJSON")

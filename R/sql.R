@@ -73,13 +73,13 @@ test_connection <- function(){
 
 #' Run sql inquiry and save result to file
 #'
-#' Carto API requires a file name but \code{httr::write_disk} file path will override
-#' it. So we can use any dummy file name for API call.
+#' Carto API requires a file name but \code{httr::write_disk} file path will
+#' override it. So we can use any dummy file name for API call.
 #'
 #' @param inquiry sql inquiry string
 #' @param filepath output file path
-#' @param parameter additional parameter to sql inquiry, like file format,
-#'   by default in JSON, could be GeoJSON
+#' @param parameter additional parameter to sql inquiry, like file format, by
+#'   default in JSON, could be GeoJSON
 #'
 #' @return request status
 #' @export
@@ -104,7 +104,7 @@ sql_inquiry_save <- function(inquiry, filepath, parameter = ""){
 #' @export
 #'
 #' @examples
-#' sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/test.json")
+#' sql_inquiry_save_geojson("SELECT * FROM table_1 limit 2", "e:/testgeo.json")
 sql_inquiry_save_geojson <- function(inquiry, filepath) {
   sql_inquiry_save(inquiry, filepath, "&format=GeoJSON")
 }

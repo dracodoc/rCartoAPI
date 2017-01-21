@@ -18,6 +18,6 @@ request status
 A wrapper to \code{sql_inquiry_save(inquiry, filepath, "&format=GeoJSON")}
 }
 \examples{
-sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/test.json")
+sql_inquiry_save_geojson("SELECT * FROM table_1 limit 2", "e:/testgeo.json")
 }
 
