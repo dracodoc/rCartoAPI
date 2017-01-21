@@ -2,7 +2,7 @@
 % Please edit documentation in R/sql.R
 \name{sql_inquiry}
 \alias{sql_inquiry}
-\title{Run sql inquiry}
+\title{Run sql inquiry and get result}
 \usage{
 sql_inquiry(inquiry, parameter = "")
 }
@@ -16,6 +16,9 @@ file name}
 request response in JSON format
 }
 \description{
+Inquiry result returned in response content, or saved to file.
+}
+\details{
 Calling function without assigning return value will print response status
 and response content in console. Assigning return value will print response
 status only.

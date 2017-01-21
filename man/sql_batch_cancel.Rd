@@ -2,14 +2,17 @@
 % Please edit documentation in R/sql.R
 \name{sql_batch_cancel}
 \alias{sql_batch_cancel}
-\title{Title}
+\title{Cancel a Batch sql inquiry}
 \usage{
 sql_batch_cancel(job_id)
 }
 \arguments{
-\item{job_id}{}
+\item{job_id}{job id of previously submitted Batch sql inquiry}
+}
+\value{
+request status
 }
 \description{
-Title
+Cancel a Batch sql inquiry
 }
 

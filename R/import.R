@@ -111,7 +111,7 @@ url_sync <- function(link, quoted_guessing = FALSE){
 #' status only.
 #'
 #' Note the time in response is UTC time. To convert it into local time, use
-#' \code{with_tz(ymd_hms(time))}
+#' \code{lubridate::with_tz(lubridate::ymd_hms(time))}
 #'
 #' @return request response in JSON format
 #' @export
@@ -128,7 +128,7 @@ list_sync_tables <- function(){
 #' status only.
 #'
 #' Note the time in response is UTC time. To convert it into local time, use
-#' \code{with_tz(ymd_hms(time))}
+#' \code{lubridate::with_tz(lubridate::ymd_hms(time))}
 #'
 #' @return A data.table holding sync file table
 #' @export
@@ -136,7 +136,7 @@ list_sync_tables <- function(){
 list_sync_tables_dt <- function(){
   # don't need content in json format no matter what.
   res <- list_sync_tables()
-  dt <- as.data.table(jsonlite::fromJSON(res)$synchronizations)
+  dt <- data.table(jsonlite::fromJSON(res)$synchronizations)
   return(dt)
 }
 
@@ -197,7 +197,7 @@ remove_sync <- function(table_id) {
 #'
 #' @return request response in JSON format
 force_sync_without_time_check <- function(table_id){
-  res <- PUT(build_sync_url(table_id))
+  res <- httr::PUT(build_sync_url(table_id))
   return(get_response(res))
 }
 
@@ -213,10 +213,11 @@ force_sync_without_time_check <- function(table_id){
 force_sync <- function(table_id){
   cat("Checking last sync time for table ...\n")
   tables_dt <- list_sync_tables_dt()
-  last_sync_time <- ymd_hms(tables_dt[id == table_id, updated_at])
-  time_passed <- now() - last_sync_time
-  cat(paste0("\n\n", format(time_passed), " passed since last sync at ", with_tz(last_sync_time), "\n"))
-  if (time_passed < dminutes(15)) {
+  # has similar code in sql_batch_check, but difficult to abstract since two variables are needed
+  last_sync_time <- lubridate::ymd_hms(tables_dt[id == table_id, updated_at])
+  time_passed <- lubridate::now() - last_sync_time
+  cat(paste0("\n\n", format(time_passed), " passed since last sync at ", lubridate::with_tz(last_sync_time), "\n"))
+  if (time_passed < lubridate::dminutes(15)) {
     stop("\nCarto require at least 15 mins wait since last sync")
   } else {
     cat("\nForce syncing ...\n")

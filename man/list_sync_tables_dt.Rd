@@ -16,6 +16,6 @@ status only.
 }
 \details{
 Note the time in response is UTC time. To convert it into local time, use
-\code{with_tz(ymd_hms(time))}
+\code{lubridate::with_tz(lubridate::ymd_hms(time))}
 }
 

@@ -53,14 +53,13 @@ update_env <- function(){
 #' @param print_only If TRUE, only print the status, no returning of content. Default FALSE.
 #'
 #' @return If \code{print_only} is FALSE, the response object in prettified json format
-#' @import httr
 get_response <- function(res, print_only = FALSE) {
-  stop_for_status(res)
+  httr::stop_for_status(res)
   cat("\n----Request Status:----\n")
-  cat(jsonlite::toJSON(http_status(res), pretty = TRUE))
+  cat(jsonlite::toJSON(httr::http_status(res), pretty = TRUE))
   cat("\n-----------------------\n")
   if (!print_only) {
-    response <- jsonlite::prettify(content(res, "text"))
+    response <- jsonlite::prettify(httr::content(res, "text"))
     return(response)
   }
 }

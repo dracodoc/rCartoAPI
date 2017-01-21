@@ -40,7 +40,9 @@ build_sql_batch_job_url <- function(job_id){
 }
 # using GET. POST is also OK. https://carto.com/docs/carto-engine/sql-api/making-calls#post-and-get
 
-#' Run sql inquiry
+#' Run sql inquiry and get result
+#'
+#' Inquiry result returned in response content, or saved to file.
 #'
 #' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
@@ -124,20 +126,15 @@ sql_inquiry_dt <- function(inquiry) {
   dt <- data.table::data.table(jsonlite::fromJSON(res)$rows)
   return(dt)
 }
-# sql_inquiry_dt("SELECT 1")
-# temp <- sql_inquiry_dt("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
 
-# usually batch job will need to save result into table, then read result from table in web page, or sql inquiry api. need to know table name. need cartodbfy table to make it appear in data set page.
-# real batch job usually are slow, need job id to check status. This function return job_id in console. the id version return job_id.
-
-#' Title
+#' Run Batch sql inquiry
 #'
-#' @param inquiry
+#' Batch sql inquiry is often used for slow processes which may cause web UI time out. Inquiry job will be submitted and a job id will be returned in response, which can be used to check job status later.
 #'
-#' @return
+#' @param inquiry sql inquiry string
+#'
+#' @return inquiry response, including job id
 #' @export
-#'
-#' @examples
 sql_batch_inquiry <- function(inquiry){
   # sql_url <- get_sql_batch_url()
   sql_batch_url <- build_sql_batch_url()
@@ -151,55 +148,46 @@ sql_batch_inquiry <- function(inquiry){
 # inq <- sql_batch_inquiry("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
 # it's not appropriate to define a dt version, all dt version return results in dt. here is just to get response parameters. no need to write general json->dt function since it's too simple, but need one liner to get jobid since it's too common.
 
-#' Title
+#' Run Batch sql inquiry and return job id
 #'
-#' @param inquiry
+#' Return batch sql inquiry job id directly so it can be used to check inquiry status later.
 #'
-#' @return
+#' @param inquiry sql inquiry string
+#'
+#' @return job id
 #' @export
-#'
-#' @examples
 sql_batch_inquiry_id <- function(inquiry){
   res <- sql_batch_inquiry(inquiry)
   # response has been converted to json already. just print it
   cat(res)
   return(jsonlite::fromJSON(res)$job_id)
 }
-# sql_batch_inquiry_id("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
-# temp <- sql_batch_inquiry_id("SELECT * FROM nfpaadmin.bfa_sample_1_1 limit 2")
-# check status, so called read job in documentation
 
-#' Title
+#' Check Batch sql inquiry status
 #'
-#' @param job_id
+#' Return inquiry status in requst response content. If the job is still running, will also report the time passed since job submitted. Note sometimes the reported time are not accurate enough so the time passed could be negative if checked immediately after submit.
 #'
-#' @return
+#' @param job_id job id of previously submitted Batch sql inquiry
+#'
+#' @return inquiry status
 #' @export
-#'
-#' @examples
-#' @import lubridate
 sql_batch_check <- function(job_id){
   res <- get_response(httr::GET(build_sql_batch_job_url(job_id)))
   cat(res)
   res_list <- jsonlite::fromJSON(res)
   if (res_list$status == "running") {
-    created <- ymd_hms(res_list$created_at)
-    # updated <- ymd_hms(res_list$updated_at)
-    time_passed <- now() - created
-    cat(paste0("\n", format(time_passed), " passed since job created at ", with_tz(created), "\n"))
+    created <- lubridate::ymd_hms(res_list$created_at)
+    time_passed <- lubridate::now() - created
+    cat(paste0("\n", format(time_passed), " passed since job created at ", lubridate::with_tz(created), "\n"))
   }
 }
-# sql_batch_check("2a610405-bc22-4ce4-b8d8-0d866d871d56")
-# not tested yet, beause no unfinished job
 
-#' Title
+#' Cancel a Batch sql inquiry
 #'
-#' @param job_id
+#' @param job_id job id of previously submitted Batch sql inquiry
 #'
-#' @return
+#' @return request status
 #' @export
-#'
-#' @examples
 sql_batch_cancel <- function(job_id){
   return(get_response(httr::DELETE(build_sql_batch_job_url(job_id))))
 }

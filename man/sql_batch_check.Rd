@@ -2,14 +2,17 @@
 % Please edit documentation in R/sql.R
 \name{sql_batch_check}
 \alias{sql_batch_check}
-\title{Title}
+\title{Check Batch sql inquiry status}
 \usage{
 sql_batch_check(job_id)
 }
 \arguments{
-\item{job_id}{}
+\item{job_id}{job id of previously submitted Batch sql inquiry}
+}
+\value{
+inquiry status
 }
 \description{
-Title
+Return inquiry status in requst response content. If the job is still running, will also report the time passed since job submitted. Note sometimes the reported time are not accurate enough so the time passed could be negative if checked immediately after submit.
 }
 

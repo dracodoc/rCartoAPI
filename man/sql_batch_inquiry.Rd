@@ -2,14 +2,17 @@
 % Please edit documentation in R/sql.R
 \name{sql_batch_inquiry}
 \alias{sql_batch_inquiry}
-\title{Title}
+\title{Run Batch sql inquiry}
 \usage{
 sql_batch_inquiry(inquiry)
 }
 \arguments{
-\item{inquiry}{}
+\item{inquiry}{sql inquiry string}
+}
+\value{
+inquiry response, including job id
 }
 \description{
-Title
+Batch sql inquiry is often used for slow processes which may cause web UI time out. Inquiry job will be submitted and a job id will be returned in response, which can be used to check job status later.
 }
 

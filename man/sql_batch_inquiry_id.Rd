@@ -2,14 +2,17 @@
 % Please edit documentation in R/sql.R
 \name{sql_batch_inquiry_id}
 \alias{sql_batch_inquiry_id}
-\title{Title}
+\title{Run Batch sql inquiry and return job id}
 \usage{
 sql_batch_inquiry_id(inquiry)
 }
 \arguments{
-\item{inquiry}{}
+\item{inquiry}{sql inquiry string}
+}
+\value{
+job id
 }
 \description{
-Title
+Return batch sql inquiry job id directly so it can be used to check inquiry status later.
 }
 
