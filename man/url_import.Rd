@@ -2,12 +2,12 @@
 % Please edit documentation in R/import.R
 \name{url_import}
 \alias{url_import}
-\title{Import a remote file link into Carto}
+\title{Import a remote file by url}
 \usage{
 url_import(link, quoted_guessing = FALSE)
 }
 \arguments{
-\item{link}{remote file link}
+\item{link}{remote file url}
 
 \item{quoted_guessing}{If TRUE, Carto will also guess quoted columns. Default
 FALSE.}

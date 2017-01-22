@@ -125,7 +125,7 @@ sql_inquiry_df <- function(inquiry) {
   return(jsonlite::fromJSON(res)$rows)
 }
 
-#' Run Batch sql inquiry
+#' Submit Batch sql inquiry
 #'
 #' Batch sql inquiry is often used for slow processes which may cause web UI time out. Inquiry job will be submitted and a job id will be returned in response, which can be used to check job status later.
 #'
@@ -143,7 +143,7 @@ sql_batch_inquiry <- function(inquiry){
   return(get_response(res))
 }
 
-#' Run Batch sql inquiry and return job id
+#' Submit Batch sql inquiry and return job id
 #'
 #' Return batch sql inquiry job id directly so it can be used to check inquiry status later.
 #'

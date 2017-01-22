@@ -7,13 +7,12 @@
 convert_dropbox_link(link = readClipboard())
 }
 \arguments{
-\item{link}{the dropbox share link. Will take clipboard content if not
-provided in call.}
+\item{link}{the dropbox share link.}
 }
 \value{
 dropbox direct access file url
 }
 \description{
-Convert dropbox share link into direct access file url
+Will take clipboard content if parameter not provided (windows only).
 }
 

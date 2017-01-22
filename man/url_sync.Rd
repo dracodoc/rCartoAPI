@@ -2,7 +2,7 @@
 % Please edit documentation in R/import.R
 \name{url_sync}
 \alias{url_sync}
-\title{Sync with a remote file link}
+\title{Sync with a remote file by url}
 \usage{
 url_sync(link, quoted_guessing = FALSE)
 }

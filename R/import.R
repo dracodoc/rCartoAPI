@@ -41,8 +41,9 @@ local_import <- function(file_name){
 
 #' Convert dropbox share link into direct access file url
 #'
-#' @param link the dropbox share link. Will take clipboard content if not
-#'   provided in call.
+#' Will take clipboard content if parameter not provided (windows only).
+#'
+#' @param link the dropbox share link.
 #'
 #' @return dropbox direct access file url
 #' @export
@@ -72,13 +73,13 @@ url_common <- function(link, quoted_guessing = FALSE, api){
   return(get_response(res))
 }
 
-#' Import a remote file link into Carto
+#' Import a remote file by url
 #'
 #' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
 #' status only.
 #'
-#' @param link remote file link
+#' @param link remote file url
 #' @param quoted_guessing If TRUE, Carto will also guess quoted columns. Default
 #'   FALSE.
 #'
@@ -88,7 +89,7 @@ url_import <- function(link, quoted_guessing = FALSE){
   return(url_common(link, quoted_guessing, "imports/"))
 }
 
-#' Sync with a remote file link
+#' Sync with a remote file by url
 #'
 #' Calling function without assigning return value will print response status
 #' and response content in console. Assigning return value will print response
