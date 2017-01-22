@@ -1,6 +1,7 @@
 # Introduction
 
 [Carto.com](http://carto.com) is a web map provider. I used Carto in my project because:
+
 1. With PostgreSQL, PostGIS as backend, you have all the power of SQL and PostGIS functions. With Mapbox you will need to do everything in JavaScript. Because you can run SQL inside the Carto website UI, it's much easier to experiment and update.
 2. The new Builder let user to create widgets for map, which let map viewers select range in date or histgram, value in categorical variable, and the map will update dynamically. 
 
@@ -67,7 +68,7 @@ Most references I found in this usage used `.Rprofile`, while I think `.Renviron
 
 ## Usage
 Function summary:
-- `update_env`, update environment variables after changes to Carto user name and API key.
+- `update_env`, update environment variables after changes to Carto user name and API key
 - `local_import`, upload local file
 - `url_import`, import a remote file by url
 - `convert_dropbox_link`, convert dropbox shared link into direct file link. Can take windows clipboard if no parameter provided.
