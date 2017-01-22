@@ -2,7 +2,7 @@
 % Please edit documentation in R/sql.R
 \name{sql_batch_inquiry}
 \alias{sql_batch_inquiry}
-\title{Run Batch sql inquiry}
+\title{Submit Batch sql inquiry}
 \usage{
 sql_batch_inquiry(inquiry)
 }

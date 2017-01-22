@@ -91,7 +91,7 @@ See help on individual function for details. Check Carto API document for more i
 
 ### Some usage tips
 
-I wrote about some tips in my blog post, which include:
+I wrote about some tips in [my blog post](http://dracodoc.github.io/2017/01/21/rCarto/), which include:
 - csv column type guessing
 - update data after a map is created
 - upload Gigabyte sized file to Carto in automated workflow
