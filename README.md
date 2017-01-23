@@ -42,6 +42,9 @@ devtools::install_github("dracodoc/rCartoAPI")
 
 `devtools` need some dependencies to work, like Rtools in windows, Xcode in Mac. If you have trouble installing it, there are also lightweighted alternatives like [remotes](https://github.com/r-pkgs/remotes). After installing `remotes`, run `remotes::install_github("dracodoc/rCartoAPI")`
 
+### Updates
+- 2017.01.23  Corrected the syntax used in `.Renviron`, updated the help messages.
+
 ### Carto user name and API key
 
 All the functions in the package currently require an API key from Carto. Without API key you can only do some read only operations with public data. If there is more demand I can add the keyless versions, though I think it will be even better for Carto to just provide API key in free plan.
@@ -58,13 +61,15 @@ Add these lines:
 
 ```
 # for Carto
-Sys.setenv(carto_acc = "your user name")
-Sys.setenv(carto_api_key = "your api key")
+carto_acc = "your user name"
+carto_api_key = "your api key"
 ```
 
-Then run `update_env()` to update environment variables. If you ever need to change or switch the user name and API key, just edit the `.Renviron` file and run `update_env()` again.
+Then run `setup_key()`. 
 
-Most references I found in this usage used `.Rprofile`, while I think `.Renviron` is more suitable for this need. If you want to update variables and reload them, you don't need to touch the other part in `.Rprofile`. 
+Note if you want to remove the key and just deleted the lines from`~/.Renviron`, the key could still exist in environment. Restart R session to make sure it was removed. For adding key or changing key value, editing and runing `setup_key()` is enough.
+
+Many references I found in this usage used `.Rprofile`, while I think [`.Renviron` is more suitable for this need](https://csgillespie.github.io/efficientR/3-3-r-startup.html#renviron). If you want to update variables and reload them, you don't need to touch the other part in `.Rprofile`. 
 
 ## Usage
 Function summary:

@@ -1,14 +1,15 @@
-#' Setup Carto user name and API key
+#' Read Carto user name and API key from environment
 #'
-#' All functions need a Carto user name and API key.
+#' The design goal is 1. hide details and varibles from user, only expose update
+#' function,2. put help details in update function, 3. report error in all
+#' functions, 4. report user name in success reading, only in package loading
+#' and after update.
 #'
-#' 1. run \code{file.edit("~/.Renviron")} and add \code{Sys.setenv(carto_acc =
-#' "your user name")}; \code{Sys.setenv(carto_api_key = "your api key")}
-#'
-#' 2. run \code{readRenviron("~/.Renviron")} or \code{update_api_key()} to
-#' update environment variables.
-#'
-#' Check package readme for more details.
+#' That means carto_setup only report error, and a separate function to provide
+#' message string of reporting success or failure. Package loading and updating
+#' will message this string. That function need to suppress carto_setup message
+#' and use its own copy because the return result is a message string, not
+#' printing message immediately.
 #'
 #' @return a named vector holding user name and API key
 carto_setup <- function(){
@@ -17,30 +18,52 @@ carto_setup <- function(){
       all(nchar(carto_env) != 0)) {
     return(carto_env)
   } else {
-    return(message("Carto user name or API key not found, check `?carto_setup` for details"))
+    return(message("Carto user name or API key not found or invalid, check ?rCartoAPI::setup_key for details"))
   }
 }
 
-#' Check if carto user name and API key is available
+#' Message string of user name found in env
 #'
-#' @return setup status message string
+#' If user name is not found, error message is reported from all the
+#' functions. If user name is found, this only need to be reported in package
+#' loading or after updating the environment, not in normal function usage.
+#'
+#' @return message string
 check_carto_setup <- function(){
-  carto_env <- carto_setup()
+  carto_env <- suppressMessages(carto_setup())
   ifelse(typeof(carto_env) == "character",
                 paste0("Carto API key for user ", carto_env["carto_acc"],
                        " found in environment"),
-                "Carto user name and API key not found in environment or invalid, check `help carto_setup` for details")
+                "Carto user name or API key not found or invalid, check ?rCartoAPI::setup_key for details")
 }
 
-#' Update environment variables
+#' Set up Carto user name and API key with environment
 #'
-#' \code{readRenviron("~/.Renviron")} then check if the setup is correct
+#' All functions need a Carto user name and API key.
+#'
+#' \enumerate{
+#'   \item run \code{file.edit("~/.Renviron")} to edit the environment
+#' variable file
+#'   \item add two lines
+#'     \itemize{ \item \code{carto_acc = "your
+#' user name"}
+#'     \item \code{carto_api_key = "your api key"}
+#'     }
+#'   \item run \code{setup_key()}.
+#'  }
+#'
+#' Note if you want to remove the key and deleted the lines from
+#' \code{~/.Renviron}, the key could still exist in environment. Restart R
+#' session to make sure it was removed.
+#'
+#' For adding key or changing key value, edit and run \code{setup_key()} is
+#' enough.
 #'
 #' @return setup status message
 #' @export
-update_env <- function(){
+setup_key <- function(){
   readRenviron("~/.Renviron")
-  cat(check_carto_setup(), "\n")
+  message(check_carto_setup())
 }
 
 #' Print or return the API call response

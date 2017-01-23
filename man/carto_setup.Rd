@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{carto_setup}
 \alias{carto_setup}
-\title{Setup Carto user name and API key}
+\title{Read Carto user name and API key from environment}
 \usage{
 carto_setup()
 }
@@ -10,15 +10,16 @@ carto_setup()
 a named vector holding user name and API key
 }
 \description{
-All functions need a Carto user name and API key.
+The design goal is 1. hide details and varibles from user, only expose update
+function,2. put help details in update function, 3. report error in all
+functions, 4. report user name in success reading, only in package loading
+and after update.
 }
 \details{
-1. run \code{file.edit("~/.Renviron")} and add \code{Sys.setenv(carto_acc =
-"your user name")}; \code{Sys.setenv(carto_api_key = "your api key")}
-
-2. run \code{readRenviron("~/.Renviron")} or \code{update_api_key()} to
-update environment variables.
-
-Check package readme for more details.
+That means carto_setup only report error, and a separate function to provide
+message string of reporting success or failure. Package loading and updating
+will message this string. That function need to suppress carto_setup message
+and use its own copy because the return result is a message string, not
+printing message immediately.
 }
 

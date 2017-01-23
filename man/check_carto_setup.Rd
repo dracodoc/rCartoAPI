@@ -2,14 +2,16 @@
 % Please edit documentation in R/helper.R
 \name{check_carto_setup}
 \alias{check_carto_setup}
-\title{Check if carto user name and API key is available}
+\title{Message string of user name found in env}
 \usage{
 check_carto_setup()
 }
 \value{
-setup status message string
+message string
 }
 \description{
-Check if carto user name and API key is available
+If user name is not found, error message is reported from all the
+functions. If user name is found, this only need to be reported in package
+loading or after updating the environment, not in normal function usage.
 }
 
