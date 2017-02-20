@@ -18,4 +18,3 @@ encoded url of sql api call
 \description{
 Build url for sql inquiry
 }
-

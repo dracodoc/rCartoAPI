@@ -15,4 +15,3 @@ request status
 \description{
 Cancel a Batch sql inquiry
 }
-

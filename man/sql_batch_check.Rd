@@ -15,4 +15,3 @@ inquiry status
 \description{
 Return inquiry status in requst response content. If the job is still running, will also report the time passed since job submitted. Note sometimes the reported time are not accurate enough so the time passed could be negative if checked immediately after submit.
 }
-

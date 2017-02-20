@@ -15,4 +15,3 @@ inquiry response, including job id
 \description{
 Batch sql inquiry is often used for slow processes which may cause web UI time out. Inquiry job will be submitted and a job id will be returned in response, which can be used to check job status later.
 }
-

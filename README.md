@@ -1,6 +1,6 @@
 # Introduction
 
-[Carto.com](http://carto.com) is a web map provider. I used Carto in my project because:
+[Carto](http://carto.com) is a web map provider. I used Carto in my project because:
 
 1. With PostgreSQL, PostGIS as backend, you have all the power of SQL and PostGIS functions. With Mapbox you will need to do everything in JavaScript. Because you can run SQL inside the Carto website UI, it's much easier to experiment and update.
 2. The new Builder let user to create widgets for map, which let map viewers select range in date or histgram, value in categorical variable, and the map will update dynamically. 

@@ -19,4 +19,3 @@ Just remove the sync schedule, not the existing table in Carto.
 Finished sync tables should appear in Carto.com data set page. Empty or wrong
 sync tables will not appear and cannot be delete from web UI.
 }
-

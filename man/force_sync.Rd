@@ -16,4 +16,3 @@ request response if force sync is run
 Since there is a 15 mins wait limit since last sync, this function will check
 last sync time first, and only run force sync when it's possible.
 }
-

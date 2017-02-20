@@ -15,4 +15,3 @@ sql API url
 \description{
 Build url for sql and batch sql inquiry
 }
-

@@ -22,4 +22,3 @@ will message this string. That function need to suppress carto_setup message
 and use its own copy because the return result is a message string, not
 printing message immediately.
 }
-

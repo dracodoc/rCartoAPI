@@ -27,4 +27,3 @@ console, then save the content in prettified json format.
 
 Function will stop for http error.
 }
-

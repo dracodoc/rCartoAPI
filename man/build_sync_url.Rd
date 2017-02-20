@@ -15,4 +15,3 @@ API url
 \description{
 The url is same for two commands, except GET or PUT
 }
-

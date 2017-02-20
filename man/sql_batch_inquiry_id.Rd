@@ -15,4 +15,3 @@ job id
 \description{
 Return batch sql inquiry job id directly so it can be used to check inquiry status later.
 }
-

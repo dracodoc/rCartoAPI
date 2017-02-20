@@ -17,4 +17,3 @@ There is a 15 mins wait limit since last sync. Depend on last sync time the
 force sync may fail. When force sync is possible there should be a "sync now"
 button in data set view page.
 }
-

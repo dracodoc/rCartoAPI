@@ -25,4 +25,3 @@ override it. So we can use any dummy file name for API call.
 sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/testgeo.json", "&format=GeoJSON")
 sql_inquiry_save("SELECT * FROM table_1 limit 2", "e:/test.json")
 }
-

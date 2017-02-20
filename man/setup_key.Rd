@@ -31,4 +31,3 @@ session to make sure it was removed.
 For adding key or changing key value, edit and run \code{setup_key()} is
 enough.
 }
-

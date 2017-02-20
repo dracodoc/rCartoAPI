@@ -14,4 +14,3 @@ If user name is not found, error message is reported from all the
 functions. If user name is found, this only need to be reported in package
 loading or after updating the environment, not in normal function usage.
 }
-

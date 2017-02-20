@@ -16,4 +16,3 @@ if the setup is successful.
 \details{
 It's just a wrapper to \code{sql_inquiry("SELECT 1")}
 }
-

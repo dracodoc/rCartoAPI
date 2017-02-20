@@ -15,4 +15,3 @@ dropbox direct access file url
 \description{
 Will take clipboard content if parameter not provided (windows only).
 }
-

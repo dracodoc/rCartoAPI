@@ -15,4 +15,3 @@ encoded url of checking batch sql inquiry
 \description{
 Build url for checking batch sql inquiry
 }
-

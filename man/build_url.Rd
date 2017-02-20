@@ -20,4 +20,3 @@ to build its url.
 \details{
 Called by \code{\link{local_import}}, \code{\link{url_common}}
 }
-

@@ -22,4 +22,3 @@ Used \code{\link{build_url}}. Called by \code{\link{url_import}},
 \code{\link{url_sync}} Note the API call to list sync table used different
 format
 }
-

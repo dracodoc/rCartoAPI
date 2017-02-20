@@ -12,4 +12,3 @@ encoded url of batch sql inquiry
 \description{
 Build url for creating batch sql inquiry
 }
-
