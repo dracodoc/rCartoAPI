@@ -81,15 +81,15 @@ setup_key <- function(){
 #' @param res response object
 #' @param content_echo whether to print request content in console
 #'
-#' @return If \code{no_echo} is FALSE, the response object in prettified json
-#'   format
+#' @return The response object in prettified json format
 get_response <- function(res, content_echo = TRUE) {
   httr::stop_for_status(res)
   cat("\n----Request Status:----\n")
   cat(jsonlite::toJSON(httr::http_status(res), pretty = TRUE))
   cat("\n-----------------------\n")
+  response <- invisible(jsonlite::prettify(httr::content(res, "text")))
   if (content_echo) {
-    response <- jsonlite::prettify(httr::content(res, "text"))
-    return(response)
+    response
   }
+  return(response)
 }
