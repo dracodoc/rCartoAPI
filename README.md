@@ -72,6 +72,8 @@ Note if you want to remove the key and just deleted the lines from`~/.Renviron`,
 Many references I found in this usage used `.Rprofile`, while I think [`.Renviron` is more suitable for this need](https://csgillespie.github.io/efficientR/3-3-r-startup.html#renviron). If you want to update variables and reload them, you don't need to touch the other part in `.Rprofile`. 
 
 ## Usage
+[Function reference website](https://dracodoc.github.io/rCartoAPI/)
+
 Function summary:
 - `update_env`, update environment variables after changes to Carto user name and API key
 - `local_import`, upload local file
