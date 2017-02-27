@@ -1,0 +1,10 @@
+templates:
+  params:
+    bootswatch: readable
+
+navbar:
+  title: ~
+  type: default
+  right:
+    - icon: fa-github fa-2x
+      href: https://github.com/dracodoc/rCartoAPI

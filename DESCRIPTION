@@ -6,6 +6,7 @@ Authors@R: person("Xianghui", "Dong", email = "xianghui.dong@gmail.com",
                   role = c("aut", "cre"))
 Maintainer: xianghui Dong <xianghui.dong@gmail.com>
 Description: Import, sync file, run SQL inquries with Carto in R
+URL: https://github.com/dracodoc/rCartoAPI
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
