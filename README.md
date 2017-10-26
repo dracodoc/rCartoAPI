@@ -1,6 +1,6 @@
 # Introduction
 
-[Carto](http://carto.com) is a web map provider. I used Carto in my project because:
+This is a R wrapper for Carto.com API. Carto is a web map provider. I used Carto in my project because:
 
 1. With PostgreSQL, PostGIS as backend, you have all the power of SQL and PostGIS functions. With Mapbox you will need to do everything in JavaScript. Because you can run SQL inside the Carto website UI, it's much easier to experiment and update.
 2. The new Builder let user to create widgets for map, which let map viewers select range in date or histgram, value in categorical variable, and the map will update dynamically. 
@@ -72,6 +72,8 @@ Note if you want to remove the key and just deleted the lines from`~/.Renviron`,
 Many references I found in this usage used `.Rprofile`, while I think [`.Renviron` is more suitable for this need](https://csgillespie.github.io/efficientR/3-3-r-startup.html#renviron). If you want to update variables and reload them, you don't need to touch the other part in `.Rprofile`. 
 
 ## Usage
+[Function reference website](https://dracodoc.github.io/rCartoAPI/)
+
 Function summary:
 - `update_env`, update environment variables after changes to Carto user name and API key
 - `local_import`, upload local file
