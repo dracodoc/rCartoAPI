@@ -75,7 +75,7 @@ Many references I found in this usage used `.Rprofile`, while I think [`.Renviro
 [Function reference website](https://dracodoc.github.io/rCartoAPI/)
 
 Function summary:
-- `update_env`, update environment variables after changes to Carto user name and API key
+- `setup_key`, setup Carto user name and API key, see `?setup_key` for details
 - `local_import`, upload local file
 - `url_import`, import a remote file by url
 - `convert_dropbox_link`, convert dropbox shared link into direct file link. Can take windows clipboard if no parameter provided.
