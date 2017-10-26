@@ -34,7 +34,7 @@ local_import <- function(file_name){
   base_url <- build_url("imports/")
   res <- httr::POST(base_url,
     encode = "multipart",
-    body = list(file = upload_file(file_name))
+    body = list(file = httr::upload_file(file_name))
   )
   return(get_response(res))
 }
