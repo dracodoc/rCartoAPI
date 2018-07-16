@@ -58,7 +58,7 @@ check_carto_setup <- function(){
 #'
 #' For adding key or changing key value, edit and run \code{setup_key()} is
 #' enough.
-#' @param env_path path of environment file. Default as `~/.Renviron`.
+#' @param env_path path of environment file. Default as \code{~/.Renviron}.
 #'
 #' @return setup status message
 #' @export

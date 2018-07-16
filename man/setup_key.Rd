@@ -4,7 +4,10 @@
 \alias{setup_key}
 \title{Set up Carto user name and API key with environment}
 \usage{
-setup_key()
+setup_key(env_path = "~/.Renviron")
+}
+\arguments{
+\item{env_path}{path of environment file. Default as \code{~/.Renviron}.}
 }
 \value{
 setup status message

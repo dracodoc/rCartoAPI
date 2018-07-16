@@ -12,8 +12,7 @@ get_response(res, content_echo = TRUE)
 \item{content_echo}{whether to print request content in console}
 }
 \value{
-If \code{no_echo} is FALSE, the response object in prettified json
-  format
+The response object in prettified json format
 }
 \description{
 There are two parts in response: response status and response content. The
