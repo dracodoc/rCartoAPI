@@ -58,11 +58,12 @@ check_carto_setup <- function(){
 #'
 #' For adding key or changing key value, edit and run \code{setup_key()} is
 #' enough.
+#' @param env_path path of environment file. Default as `~/.Renviron`.
 #'
 #' @return setup status message
 #' @export
-setup_key <- function(){
-  readRenviron("~/.Renviron")
+setup_key <- function(env_path = "~/.Renviron"){
+  readRenviron(env_path)
   message(check_carto_setup())
 }
 
